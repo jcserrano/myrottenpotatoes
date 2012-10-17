@@ -30,13 +30,17 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find params[:id]
-    @movie.update_attributes!(params[:movie])
-    respond_to do |client_wants|
-      client_wants.html do
-        flash[:notice] = "#{@movie.title} was successfully updated."
-        redirect_to movie_path(@movie)  
-      end
-      client_wants.xml  {  render :xml => @movie.to_xml    }
+    if params[:commit] == "Cancel"
+      redirect_to movie_path(@movie)
+    else
+  	  @movie.update_attributes!(params[:movie])
+  	  respond_to do |client_wants|
+    	  client_wants.html do
+      	  flash[:notice] = "#{@movie.title} was successfully updated."
+      	  redirect_to movie_path(@movie)  
+    	  end
+    	  client_wants.xml  {  render :xml => @movie.to_xml    }
+  	  end
     end
   end
 
