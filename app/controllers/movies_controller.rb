@@ -15,9 +15,13 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.create!(params[:movie])
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movie_path(@movie)
+     if params[:commit] == "Cancel"
+      redirect_to movies_path
+    else
+  	  @movie = Movie.create!(params[:movie])
+  	  flash[:notice] = "#{@movie.title} was successfully created."
+  	  redirect_to movie_path(@movie)
+    end
   end
 
   def edit
