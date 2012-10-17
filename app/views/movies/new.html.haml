@@ -11,6 +11,9 @@
   = label :movie, :release_date, 'Released On'
   = date_select :movie, :release_date, :start_year => 1901
 
+  = label :movie, :decription, 'Description'
+  = text_area :movie, 'description', :size => "60x12"
+
   %br
   = submit_tag 'Save Changes'
   = submit_tag 'Cancel'
